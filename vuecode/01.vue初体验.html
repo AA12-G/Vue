@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app"> 
+        {{ username }}
+        <p v-text="username"></p>
+        <p v-html="info"></p>
+        <hr>
+
+        <input type="text" v-bind:placeholder="tips">
+        <hr>
+        <!-- vue 规定 v-bind 可以简写成英文的 :-->
+        <img :src="photo" alt="" style="width: 150px;">
+
+        <hr>
+        <p>shuzi的值是：{{ shuzi }}</p>
+        <!-- 在绑定事件处理函数时，可以用 () 来传递参数  -->
+        <!-- vue提供了内置变量，名字叫做$event（固定的），它就是原生DOM的事件对象  e -->
+        <button v-on:click="add(1,$event)">+1</button>
+        <!-- vue 规定 v-on 可以简写成 @  -->
+        <button @click="sub">-1</button>
+
+        <hr>
+        <a href="http://www.baidu.com" @click.prevent="show">跳转到百度页面</a>
+        <hr>
+        <input type="text" @keyup.esc="clearInput" @keyup.enter="commit">
+        <hr>
+        <input type="text" v-model.number="n1">+<input type="text" v-model.number="n2">=<span>{{ n1+n2 }}</span>
+        <hr>
+        <input type="text" v-model.trim="username">
+        <button @click="showname">获取用户名</button>
+        <hr>
+
+        <table class="table-bordered">
+            <thead>
+                <th>索引</th>
+                <th>ID</th>
+                <th>名字</th>
+            </thead>
+            <tbody>
+                <!-- 官方建议：只要用到了v-for指令，那么要绑定一个 :key 属性 -->
+                <!-- 而且尽量把id作为key值 -->
+                <!-- key值类型要求：字符串或数字类型 -->
+                <tr v-for="(item,index) in list" :key="item.id" :title="item.name+index">
+                    <th>{{ index }}</th>
+                    <th>{{ item.id }}</th>
+                    <th>{{ item.name }}</th>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+  
+
+    <!-- 1.导入vue的文件-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+    <script>
+        //创建vue的实例对象
+        const vm=new Vue({
+            //el是固定写法，表示vm要控制页面上的哪一个区域，接收的值是一个选择器
+            el:'#app',
+            //data对象就是要渲染到页面上的数据
+            data:{
+                username:'xiaoguang',
+                info:'<h3 style="color:red;">hello</h3>',
+                tips:'请输入用户名',
+                photo:'D:/vue/vue2/code/vuecode/logo.jpg',
+                shuzi : 0,
+                n1:1,
+                n2:2,
+                list:[
+                    {id:1,name:'张三'},
+                    {id:2,name:'李四'},
+                    {id:3,name:'王五'}
+                ]
+            },
+            //methods的作用，就是定义事件的处理函数
+            methods:{
+                add(n,e){
+                    //在处理函数中，this就是new出来的vm实例对象
+                    //vm===this
+                    this.shuzi += n
+                    if(this.shuzi % 2==0){
+                            //偶数
+                        e.target.style.backgroundColor='red'
+                    }else{
+                            //奇数
+                        e.target.style.backgroundColor=''        
+                    }
+                },
+                sub(){
+                    this.shuzi -= 1
+                },
+                show(){
+                    console.log("点击了a链接")
+                },
+                clearInput(e){
+                    console.log("触发了clearInput事件"),
+                    e.target.value=''
+                },
+                commit(){
+                    console.log("提交了")
+                },
+                showname(){
+                    console.log(`用户名是："${this.username}"`)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
