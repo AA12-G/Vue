@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const arr=[
+            {id:1,name:'西瓜',state:true,price:10,count:1},
+            {id:2,name:'榴莲',state:false,price:80,count:2},
+            {id:3,name:'草莓',state:true,price:20,count:3},
+        ]
+
+        // arr.filter(item => item.state).reduce((累加的结果，当前循环项) => { },初始值)
+        const result = arr.filter(item => item.state).reduce((amt,item) => {
+          return amt += item.price * item.count
+         },0)
+         // 如果return 后面只有一行代码，花括号 {} 和 retrun 后面可以省略
+         //const result = arr.filter(item => item.state).reduce((amt,item) => amt += item.price * item.count,0)
+         console.log(result)
+    </script>
+</body>
+</html>

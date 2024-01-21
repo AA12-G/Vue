@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const arr=['zhangsan','lisi','wangwu','songliu']
+        arr.some((item,index)=>{
+            if(item == 'wangwu'){
+                // 在找到对应的项之后，可以使用 return true 来终止 some 循环
+                console.log(index)
+                return true
+            }
+        })
+
+    
+    </script>
+</body>
+</html>
